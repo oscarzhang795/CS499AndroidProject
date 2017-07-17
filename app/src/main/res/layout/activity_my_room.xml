@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.oscar.roomiies.activities.MyRoomActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/roomname_textview"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Room"
+            android:layout_gravity="center"
+            android:layout_margin="10dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <Button
+            android:id="@+id/groceryButton"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:layout_weight="20"
+            android:onClick="GroceryRotationButton"
+            android:text="Grocery Rotation" />
+
+        <Button
+            android:id="@+id/shoppingButton"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:layout_weight="20"
+            android:onClick="shoppingListButton"
+            android:text="Shopping List" />
+
+        <Button
+            android:id="@+id/personalButton"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:layout_weight="20"
+            android:onClick="personalItemButton"
+            android:text="Personal Items" />
+
+        <Button
+            android:id="@+id/announcementButton"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:layout_weight="20"
+            android:onClick="announcementButton"
+            android:text="Announcements" />
+    </LinearLayout>
+
+</LinearLayout>
