@@ -1,4 +1,4 @@
-package com.oscar.roomiies.data;
+package com.oscar.roomiies.adapters;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.oscar.roomiies.R;
+import com.oscar.roomiies.data.Roomate;
 
 import java.util.List;
 
@@ -19,23 +20,23 @@ import java.util.List;
  * Created by Oscar on 7/10/2017.
  */
 
-public class ItemAdapter extends ArrayAdapter<ToBuyItem>{
+public class RoommateAdapter extends ArrayAdapter<Roomate>{
     private Context context;
     private int layoutResource;
-    private List<ToBuyItem> itemList;
+    private List<Roomate> roomateList;
 
-    public ItemAdapter(@NonNull Context context,
-                       @LayoutRes int resource,
-                       @NonNull List<ToBuyItem> objects){
+    public RoommateAdapter(@NonNull Context context,
+                            @LayoutRes int resource,
+                            @NonNull List<Roomate> objects){
         super(context, resource, objects);
         this.context = context;
         this.layoutResource = resource;
-        this.itemList = objects;
+        this.roomateList = objects;
     }
 
     private class ViewHolder{
-        TextView itemName;
-        CheckBox checkBox;
+        TextView roomateName;
+        CheckBox name;
     }
 
     @NonNull
@@ -49,15 +50,20 @@ public class ItemAdapter extends ArrayAdapter<ToBuyItem>{
             convertView = vi.inflate(R.layout.listview_checkbox, null);
 
             holder = new ViewHolder();
-            holder.itemName = (TextView) convertView.findViewById(R.id.roomateName);
-            holder.checkBox = (CheckBox) convertView.findViewById(R.id.checkbox1);
+            holder.roomateName = (TextView) convertView.findViewById(R.id.roomateName);
+            holder.name = (CheckBox) convertView.findViewById(R.id.checkbox1);
             convertView.setTag(holder);
         }
         else{
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.itemName.setText(itemList.get(positon).toString());
+        holder.roomateName.setText(roomateList.get(positon).toString());
+        if(roomateList.get(positon).isHasDoneGrocery() == true){
+            holder.name.setChecked(true);
+        }else{
+            holder.name.setChecked(false);
+        }
 
         return convertView;
 

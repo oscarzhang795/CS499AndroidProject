@@ -67,10 +67,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user){
         if(user != null){
-            SharedPreferences sp = getSharedPreferences("Login", 0);
-            SharedPreferences.Editor Ed=sp.edit();
-            Ed.putString("Email", user.getEmail());
-            Ed.putString("Uid", user.getUid());
             Intent r = new Intent(LoginActivity.this, MainMenuActivity.class);
             startActivity(r);
         }

@@ -17,7 +17,7 @@
             android:textSize="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="My Rooms"
+            android:text="Announcements"
             android:layout_gravity="center"
             android:layout_margin="10dp" />
         <View
@@ -33,10 +33,29 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/item_roomview"
+        android:id="@+id/announcement_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="9"></ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+        <Button
+            android:id="@+id/addAnnouncementButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:onClick="addAnnouncementItemButton"
+            android:text="Make Announcement" />
+    </LinearLayout>
 
 
 </LinearLayout>

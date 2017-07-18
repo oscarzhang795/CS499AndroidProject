@@ -17,7 +17,7 @@
             android:textSize="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="My Rooms"
+            android:text="Personal Buys"
             android:layout_gravity="center"
             android:layout_margin="10dp" />
         <View
@@ -33,10 +33,30 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/item_roomview"
+        android:id="@+id/personalBuy_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="9"></ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <Button
+            android:id="@+id/addPersonalItemButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:text="Add item"
+            android:onClick="addPersonalItemButton"/>
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.oscar.roomiies.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,12 +15,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.oscar.roomiies.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText email;
     private EditText password;
+    private EditText fullName;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthListner;
 
@@ -30,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         email = (EditText) findViewById(R.id.regist_email);
         password = (EditText) findViewById(R.id.register_password);
+        fullName = (EditText) findViewById(R.id.name_edittext);
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
@@ -45,6 +49,9 @@ public class RegisterActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             Toast.makeText(RegisterActivity.this, "Registration Complete", Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(fullName.getText().toString()).build();
+                            firebaseAuth.getCurrentUser().updateProfile(profileUpdates);
                             startActivity(i);
                         }
                         else{

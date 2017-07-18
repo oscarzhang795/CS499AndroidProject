@@ -1,40 +1,44 @@
 package com.oscar.roomiies.data;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Created by Oscar on 7/9/2017.
  */
 
 public class Roomate {
 
-    private String firstName;
-    private String lastName;
-    private String uid;
+    private String fullName;
+    private boolean hasDoneGrocery;
 
-    public Roomate(){
+    public Roomate(){}
 
+    public Roomate(String fullName){
+        this.fullName = fullName;
+        this.hasDoneGrocery = false;
     }
 
-    public Roomate(String firstName, String lastName, String uid){
+    /*****************************************************
+    * Getters and Setters
+    ******************************************************/
+    public String getFullName() {
+        return fullName;
+    }
 
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.uid = uid;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public boolean isHasDoneGrocery() {
+        return hasDoneGrocery;
+    }
+
+    public void setHasDoneGrocery(boolean hasDoneGrocery) {
+        this.hasDoneGrocery = hasDoneGrocery;
     }
 
     public String toString(){
-        return firstName + " " + lastName;
+        return fullName;
     }
-
-    public String getFirstName(){
-        return firstName;
-    }
-
-    public String getLastName(){
-        return lastName;
-    }
-
-    public  String getUid(){
-        return uid;
-    }
-
 }
