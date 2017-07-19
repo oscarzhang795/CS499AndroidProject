@@ -90,7 +90,7 @@ public class PersonalBuyActivity extends AppCompatActivity {
 
     public void addPersonalItemButton(View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter Room ID");
+        builder.setTitle("Enter item name");
         final EditText input_field = new EditText(this);
         builder.setView(input_field);
 

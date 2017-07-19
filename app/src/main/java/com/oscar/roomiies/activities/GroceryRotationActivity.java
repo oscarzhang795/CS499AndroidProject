@@ -3,6 +3,7 @@ package com.oscar.roomiies.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
@@ -30,14 +31,11 @@ public class GroceryRotationActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
     private int postion;
-    private CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grocery);
-
-        checkBox = (CheckBox) findViewById(R.id.checkbox1);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Users");
@@ -47,43 +45,9 @@ public class GroceryRotationActivity extends AppCompatActivity {
         roomates = new LinkedList<>();
 
         loadList();
-
-
-
     }
 
-    private void setCheckBoxListener(){
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for(DataSnapshot ds : dataSnapshot.getChildren()){
 
-                            if(ds.child("uid").getValue().equals(firebaseAuth.getCurrentUser().getUid())){
-                                User user = ds.getValue(User.class);
-
-                                for(Room curRoom : user.getInvolvedRooms()){
-                                    tempRooms.add(curRoom);
-                                }
-                            }
-                        }
-                    }
-
-                    Intent r = getIntent();
-                    Bundle b = r.getExtras();
-                    int position = Integer.parseInt(b.getString("Position"));
-                    Room room = tempRooms.get(position);
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-            }
-        });
-    }
 
     private void loadList(){
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -108,7 +72,10 @@ public class GroceryRotationActivity extends AppCompatActivity {
 
 
                 ListView groceryListView = (ListView) findViewById(R.id.roomateList);
-                groceryListView.setAdapter(new RoommateAdapter(GroceryRotationActivity.this, R.layout.activity_grocery, (List) room.getRoomates()));
+
+                if(room.getRoomates()!=null) {
+                    groceryListView.setAdapter(new RoommateAdapter(GroceryRotationActivity.this, R.layout.activity_grocery, tempRooms.get(position).getRoomates()));
+                }
 
             }
 
@@ -118,4 +85,5 @@ public class GroceryRotationActivity extends AppCompatActivity {
             }
         });
     }
+
 }

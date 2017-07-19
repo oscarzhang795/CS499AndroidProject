@@ -82,12 +82,14 @@ public class MainMenuActivity extends AppCompatActivity {
                                     Log.i("mAuthID", !ds.hasChild(mAuth.getCurrentUser().getUid()) + "");
                                     Log.i("gsagasgas", "guess it works");
                                     databaseReference.child(user.getUid()).setValue(user);
+                                    break;
                                 }
 
                                 else if(existingUser.getEmail().equals(mAuth.getCurrentUser().getEmail())) {
                                     Log.i("Email Match", existingUser.getEmail().equals(mAuth.getCurrentUser().getEmail()) + "");
                                     existingUser.getInvolvedRooms().add(newRoom);
                                     databaseReference.child(existingUser.getUid()).setValue(existingUser);
+                                    break;
                                 }
                             }
                         }
@@ -155,8 +157,8 @@ public class MainMenuActivity extends AppCompatActivity {
                                 tempRoom.addRoomate(new Roomate(firebaseAuth.getCurrentUser().getDisplayName()));
                                 tempUser.getInvolvedRooms().add(tempRoom);
                                 databaseReference.child(firebaseAuth.getCurrentUser().getUid()).setValue(tempUser);
-                                Toast.makeText(MainMenuActivity.this, "Room successfully joined", Toast.LENGTH_SHORT).show();
                                 updateRoomates(roomID, new Roomate(firebaseAuth.getCurrentUser().getDisplayName()));
+                                Toast.makeText(MainMenuActivity.this, "Room successfully joined", Toast.LENGTH_SHORT).show();
                             }
                             else if(flag == false && isRoomFound == true){
                                 tempRoom.addRoomate(new Roomate(firebaseAuth.getCurrentUser().getDisplayName()));

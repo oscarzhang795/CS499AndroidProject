@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -21,6 +22,7 @@ import com.oscar.roomiies.R;
 import com.oscar.roomiies.data.Announcement;
 import com.oscar.roomiies.data.PersonalItem;
 import com.oscar.roomiies.data.Room;
+import com.oscar.roomiies.data.SwipeDetector;
 import com.oscar.roomiies.data.User;
 
 import java.util.LinkedList;
@@ -102,7 +104,7 @@ public class AnnouncementActivity extends AppCompatActivity {
                         Intent r = getIntent();
                         Bundle b = r.getExtras();
                         String roomID = b.getString("Room ID");
-
+                        String name = firebaseAuth.getCurrentUser().getDisplayName();
 
 
 
@@ -113,12 +115,12 @@ public class AnnouncementActivity extends AppCompatActivity {
                                 int counter = 0;
                                 if(room.getRoomID().equals(roomID)){
                                     if(room.getAnnouncementList() == null){
-                                        Announcement announcement = new Announcement(input_field.getText().toString(), firebaseAuth.getCurrentUser().getDisplayName());
+                                        Announcement announcement = new Announcement(input_field.getText().toString(), existingUser.getFullName());
                                         existingUser.getInvolvedRooms().get(counter).initializeAnnouncementList();
                                         existingUser.getInvolvedRooms().get(counter).getAnnouncementList().add(announcement);
                                     }
                                     else{
-                                        Announcement announcement = new Announcement(input_field.getText().toString(), firebaseAuth.getCurrentUser().getDisplayName());
+                                        Announcement announcement = new Announcement(input_field.getText().toString(), existingUser.getFullName());
                                         existingUser.getInvolvedRooms().get(counter).getAnnouncementList().add(announcement);
                                     }
                                 }

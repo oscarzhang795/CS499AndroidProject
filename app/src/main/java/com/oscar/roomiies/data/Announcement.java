@@ -34,6 +34,14 @@ public class Announcement {
         this.announcement = announcement;
     }
 
+    public String getAnnouncer() {
+        return announcer;
+    }
+
+    public void setAnnouncer(String announcer) {
+        this.announcer = announcer;
+    }
+
     public String getDate() {
         return date;
     }

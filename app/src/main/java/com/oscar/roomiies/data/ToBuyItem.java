@@ -28,6 +28,13 @@ public class ToBuyItem {
     }
 
 
+    public boolean equals(ToBuyItem item){
+        if(item.getItemName().equals(this.itemName) && item.getQuantity() == this.quantity && this.isBought() == item.isBought()){
+            return true;
+        }
+        return false;
+    }
+
     /************************************************
      * Getters and Setters
      ************************************************/

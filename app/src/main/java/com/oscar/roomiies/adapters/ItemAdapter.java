@@ -1,18 +1,27 @@
 package com.oscar.roomiies.adapters;
 
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.oscar.roomiies.R;
 import com.oscar.roomiies.data.ToBuyItem;
+import com.oscar.roomiies.data.User;
 
 import java.util.List;
 
@@ -41,7 +50,7 @@ public class ItemAdapter extends ArrayAdapter<ToBuyItem>{
 
     @NonNull
     @Override
-    public View getView(int positon, @Nullable View convertView, @NonNull ViewGroup parent){
+    public View getView(final int positon, @Nullable View convertView, @NonNull ViewGroup parent){
         ViewHolder holder = null;
 
         if(convertView == null){
@@ -58,12 +67,62 @@ public class ItemAdapter extends ArrayAdapter<ToBuyItem>{
             holder = (ViewHolder) convertView.getTag();
         }
 
+
         holder.itemName.setText(itemList.get(positon).toString());
         if(itemList.get(positon).isBought() == true){
             holder.checkBox.setChecked(true);
         }else{
             holder.checkBox.setChecked(false);
         }
+
+        Log.i("POSITION 1", positon +"");
+
+        holder.itemName.setText(itemList.get(positon).toString());
+        if(itemList.get(positon).isBought() == true){
+            holder.checkBox.setChecked(true);
+        }
+        else{
+            holder.checkBox.setChecked(false);
+        }
+
+        final ItemAdapter.ViewHolder tempHolder = holder;
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                final DatabaseReference databaseReference = firebaseDatabase.getReference("Users");
+
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot ds : dataSnapshot.getChildren()){
+                            User existingUser = ds.getValue(User.class);
+                            for(int i=0 ; i< existingUser.getInvolvedRooms().size(); i++) {
+                                for(int j=0; j< existingUser.getInvolvedRooms().get(i).getItemsToBuyList().size(); j++){
+                                    Log.i("POSITION", positon +"");
+                                    Log.i("ITEM LIST SIZE", itemList.size() + "");
+                                    if(itemList.get(positon).equals(existingUser.getInvolvedRooms().get(i).getItemsToBuyList().get(j))){
+                                        if(existingUser.getInvolvedRooms().get(i).getItemsToBuyList().get(j).isBought() != tempHolder.checkBox.isChecked()) {
+                                            existingUser.getInvolvedRooms().get(i).getItemsToBuyList().get(j).setBought(tempHolder.checkBox.isChecked());
+                                            databaseReference.child(existingUser.getUid()).setValue(existingUser);
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+        });
 
         return convertView;
 

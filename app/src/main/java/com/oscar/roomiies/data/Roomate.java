@@ -19,6 +19,13 @@ public class Roomate {
         this.hasDoneGrocery = false;
     }
 
+    public boolean equals(Roomate roomate){
+        if(this.fullName.equals(roomate.getFullName()) && this.hasDoneGrocery == roomate.hasDoneGrocery){
+            return true;
+        }
+        return false;
+    }
+
     /*****************************************************
     * Getters and Setters
     ******************************************************/
