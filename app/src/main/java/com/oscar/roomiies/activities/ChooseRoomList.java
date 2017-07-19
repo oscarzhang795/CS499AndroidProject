@@ -29,6 +29,9 @@ public class ChooseRoomList extends AppCompatActivity {
     private ListView roomView;
     private List<Room> room;
     ListAdapter testAdapter;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference reference;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,11 @@ public class ChooseRoomList extends AppCompatActivity {
         room = new LinkedList<>();
 
         roomView = (ListView) findViewById(R.id.item_roomview);
-        testAdapter = new ArrayAdapter<Room>(this, android.R.layout.simple_list_item_1, room);
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        reference = firebaseDatabase.getReference("Users");
+        firebaseAuth = FirebaseAuth.getInstance();
+
 
         loadRooms();
 
@@ -52,13 +59,12 @@ public class ChooseRoomList extends AppCompatActivity {
                 startActivity(r);
             }
         });
-
+        roomView.setAdapter(testAdapter);
     }
 
     private void loadRooms(){
-        final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference reference = firebaseDatabase.getReference("Users");
+
+
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -72,7 +78,9 @@ public class ChooseRoomList extends AppCompatActivity {
                         }
                     }
                 }
+                testAdapter = new ArrayAdapter<Room>(ChooseRoomList.this, android.R.layout.simple_list_item_1, room);
                 roomView.setAdapter(testAdapter);
+
             }
 
             @Override
@@ -80,5 +88,6 @@ public class ChooseRoomList extends AppCompatActivity {
 
             }
         });
+
     }
 }

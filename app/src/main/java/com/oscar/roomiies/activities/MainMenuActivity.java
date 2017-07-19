@@ -64,7 +64,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 //final Roomate newRoomate = new Roomate(firebaseAuth.getCurrentUser().getDisplayName());
                 //final Room newRoom = new Room(name, newRoomate);
                 //final User user = new User(firebaseAuth.getCurrentUser().getDisplayName(), firebaseAuth.getCurrentUser().getEmail(), newRoom);
-                //    databaseReference.child(user.getUid()).setValue(user);
+                 //   databaseReference.child(user.getUid()).setValue(user);
 
 
                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {

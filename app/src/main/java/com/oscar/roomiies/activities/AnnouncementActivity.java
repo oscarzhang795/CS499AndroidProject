@@ -48,7 +48,7 @@ public class AnnouncementActivity extends AppCompatActivity {
 
 
 
-        //listView.setAdapter(arrayAdapter);
+        //listView.setAdapter(new ArrayAdapter<Announcement>(AnnouncementActivity.this, android.R.layout.simple_list_item_1, tempRooms.get(position).getAnnouncementList()));
     }
 
     private void loadDatabase(){
